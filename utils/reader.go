@@ -6,15 +6,14 @@ import (
 	"github.com/ayushsatyam146/opus-midi/store"
 	"github.com/ayushsatyam146/opus-midi/timer"
 	"gitlab.com/gomidi/midi"
-	"gitlab.com/gomidi/midi/reader"
 	. "gitlab.com/gomidi/midi/midimessage/channel" // (Channel Messages)
+	"gitlab.com/gomidi/midi/reader"
 )
 
 
 func PrintNotes(ActiveNotes map[int64]store.Note) {
     output := "["
     for _, note := range ActiveNotes {
-				// fmt.Println(key)
         temp := note.Name + "-" + fmt.Sprint(note.TimeStamp) + " "
         output += temp
     }
@@ -31,12 +30,7 @@ func Must(err error) {
 func MIDIReader(in midi.In, ActiveNotes map[int64]store.Note) {
 	rd := reader.New(
 		reader.NoLogger(),
-		// print every message
 		reader.Each(func(pos *reader.Position, msg midi.Message) {
-
-			// inspect
-			// fmt.Println(msg)
-
 			switch v := msg.(type) {
 			case NoteOn:
 				currentTime := timer.GetCurrentTimestamp()
@@ -52,4 +46,16 @@ func MIDIReader(in midi.In, ActiveNotes map[int64]store.Note) {
 	)
 	err := rd.ListenTo(in)
 	Must(err)
+}
+
+func PrintNoteGroups(NoteGroups [][]store.Note) {
+
+	for i, group := range NoteGroups {
+			if i == 0 {continue}
+			fmt.Print("[")
+			for _, note := range group {
+					fmt.Print(note.Name, " ")
+			}
+			fmt.Println("]")
+	}
 }
