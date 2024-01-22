@@ -1,29 +1,10 @@
 package utils
 
 import (
-	"fmt"
 	"sort"
 
 	"github.com/ayushsatyam146/opus-midi/store"
 )
-
-func ParseChords(NoteGroups [][]store.Note) {
-	fmt.Println("Parsing Chords")
-	for i, group := range NoteGroups {
-		if(len(group) >= 3) {
-			notes := []string{}
-			for _, value := range group {
-				notes = append(notes, value.Name)
-			}
-			chord := store.FetchCord(notes)
-			if(chord != "") {
-				// fmt.Println("lmao")
-				NoteGroups[i][0].Name = chord
-				NoteGroups[i] = NoteGroups[i][:1]
-			}
-		} 
-	}
-}
 
 func ParseNotes(ActiveNotes map[int64][]store.Note) [][]store.Note {
 	totalNotes := 0

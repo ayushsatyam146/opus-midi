@@ -23,7 +23,7 @@ func REPL(in midi.In, ActiveNotes map[int64][]store.Note) {
             err := in.StopListening()
             utils.Must(err)
             noteGroups := utils.ParseNotes(ActiveNotes)
-            utils.ParseChords(noteGroups)
+            store.ParseChords(noteGroups)
             utils.PrintNoteGroups(noteGroups)
             
             fmt.Printf("closing MIDI Port %v.....\n", in)
