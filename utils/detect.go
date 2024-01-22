@@ -25,15 +25,22 @@ func ParseChords(NoteGroups [][]store.Note) {
 	}
 }
 
-func ParseNotes(ActiveNotes map[int64]store.Note) [][]store.Note{
-	fmt.Println("Parsing Notes...")
-	song := make([]store.Note, len(ActiveNotes))
-	for _, note := range ActiveNotes {
-		song = append(song, note)
+func ParseNotes(ActiveNotes map[int64][]store.Note) [][]store.Note {
+	totalNotes := 0
+	for _, notes := range ActiveNotes {
+		totalNotes += len(notes)
 	}
+	song := make([]store.Note, totalNotes)
+	for _, notes := range ActiveNotes {
+		for _, note := range notes {
+			song = append(song, note)
+		}
+	}
+
 	sort.Slice(song, func(i, j int) bool {
 		return song[i].TimeStamp < song[j].TimeStamp
 	})
+
 	NoteGroups := [][]store.Note{}
 	LocalGroup := []store.Note{}
 	for i, note := range song {

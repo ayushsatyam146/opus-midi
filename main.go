@@ -25,7 +25,7 @@ func main() {
 
     defer in.Close()
 
-    ActiveNotes := make(map[int64]store.Note)
+    ActiveNotes := make(map[int64][]store.Note)
 
     utils.MIDIReader(in, ActiveNotes)
 

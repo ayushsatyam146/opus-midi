@@ -11,11 +11,13 @@ import (
 )
 
 
-func PrintNotes(ActiveNotes map[int64]store.Note) {
+func PrintNotes(ActiveNotes map[int64][]store.Note) {
     output := "["
-    for _, note := range ActiveNotes {
-        temp := note.Name + "-" + fmt.Sprint(note.TimeStamp) + " "
-        output += temp
+    for _, notes := range ActiveNotes {
+				for _, note := range notes {
+					temp := note.Name + "-" + fmt.Sprint(note.TimeStamp) + " "
+					output += temp
+				}
     }
     output += "]"
     fmt.Println(output)
@@ -27,7 +29,7 @@ func Must(err error) {
 		}
 }
 
-func MIDIReader(in midi.In, ActiveNotes map[int64]store.Note) {
+func MIDIReader(in midi.In, ActiveNotes map[int64][]store.Note) {
 	rd := reader.New(
 		reader.NoLogger(),
 		reader.Each(func(pos *reader.Position, msg midi.Message) {
@@ -35,8 +37,8 @@ func MIDIReader(in midi.In, ActiveNotes map[int64]store.Note) {
 			case NoteOn:
 				currentTime := timer.GetCurrentTimestamp()
 				newNote := store.Note{Key: int(v.Key()), TimeStamp: currentTime, Name: store.MidiNoteMap[int(v.Key())], Velocity: int(v.Velocity())}
-				ActiveNotes[currentTime] = newNote
-				PrintNotes(ActiveNotes)
+				ActiveNotes[currentTime] = append(ActiveNotes[currentTime], newNote)
+				// PrintNotes(ActiveNotes)
 			case NoteOff:
 				// note := ActiveNotes[int(v.Key())]
 				// delete(ActiveNotes, int(v.Key()))

@@ -9,7 +9,7 @@ import (
 	"gitlab.com/gomidi/midi"
 )
 
-func REPL(in midi.In, ActiveNotes map[int64]store.Note) {
+func REPL(in midi.In, ActiveNotes map[int64][]store.Note) {
 	input := ""
     for {
         
