@@ -5,10 +5,9 @@ import (
 	"time"
 )
 
-
 func example() {
 	timestamp1 := GetCurrentTimestamp()
-	time.Sleep(time.Second * 2) 
+	time.Sleep(time.Second * 2)
 	timestamp2 := GetCurrentTimestamp()
 
 	differenceInMilliseconds := CalculateTimestampDifference(timestamp1, timestamp2)

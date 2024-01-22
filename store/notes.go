@@ -1,8 +1,8 @@
 package store
 
 type Note struct {
-	Key int
+	Key       int
 	TimeStamp int64
-	Name string
-	Velocity int
+	Name      string
+	Velocity  int
 }

@@ -10,23 +10,22 @@ import (
 	"gitlab.com/gomidi/midi/reader"
 )
 
-
 func PrintNotes(ActiveNotes map[int64][]store.Note) {
-    output := "["
-    for _, notes := range ActiveNotes {
-				for _, note := range notes {
-					temp := note.Name + "-" + fmt.Sprint(note.TimeStamp) + " "
-					output += temp
-				}
-    }
-    output += "]"
-    fmt.Println(output)
+	output := "["
+	for _, notes := range ActiveNotes {
+		for _, note := range notes {
+			temp := note.Name + "-" + fmt.Sprint(note.TimeStamp) + " "
+			output += temp
+		}
+	}
+	output += "]"
+	fmt.Println(output)
 }
 
 func Must(err error) {
-		if err != nil {
-			fmt.Println(err)
-		}
+	if err != nil {
+		fmt.Println(err)
+	}
 }
 
 func MIDIReader(in midi.In, ActiveNotes map[int64][]store.Note) {
@@ -53,11 +52,13 @@ func MIDIReader(in midi.In, ActiveNotes map[int64][]store.Note) {
 func PrintNoteGroups(NoteGroups [][]store.Note) {
 
 	for i, group := range NoteGroups {
-			if i == 0 {continue}
-			fmt.Print("[")
-			for _, note := range group {
-					fmt.Print(note.Name, " ")
-			}
-			fmt.Println("]")
+		if i == 0 {
+			continue
+		}
+		fmt.Print("[")
+		for _, note := range group {
+			fmt.Print(note.Name, " ")
+		}
+		fmt.Println("]")
 	}
 }
