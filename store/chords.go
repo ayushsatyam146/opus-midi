@@ -42,6 +42,9 @@ func GetOctave(token string) (string, int) {
 	filteredToken := ""
 	for _, char := range token {
 		if char >= '0' && char <= '9' {
+			if octave != 0 {
+				continue
+			}
 			octave = int(char - '0')
 		} else {
 			filteredToken += string(char)
@@ -62,6 +65,12 @@ func GetToken(notes []Note) string {
 	}
 
 	if octave > 2 {
+		if (len(chord) == 2 && chord[0] == chord[1]) {
+			return fmt.Sprint(int(chord[0] - 'A'))
+		}
+		if (len(chord) == 2 && chord[0] =='B') {
+			return string(chord[1]) + fmt.Sprint(octave) + "mem"
+		}
 		if chord == "Amin" {
 			return "ASTERISK"
 		} else if chord == "Gmaj" {
