@@ -12,6 +12,9 @@ func ParseNotes(ActiveNotes map[int64][]Note) [][]Note {
 	song := make([]Note, totalNotes)
 	for _, notes := range ActiveNotes {
 		for _, note := range notes {
+			if note.Key < 49 {
+				continue
+			}
 			song = append(song, note)
 		}
 	}
@@ -46,7 +49,7 @@ func ParseChords(NoteGroups [][]Note) {
 		if token != "" {
 			NoteGroups[i][0].Name = token
 			NoteGroups[i] = NoteGroups[i][:1]
-			codeString += NoteGroups[i][0].Name + " "
+			codeString += NoteGroups[i][0].Name
 		}
 	}
 	overwriteFile("test.opus", codeString)

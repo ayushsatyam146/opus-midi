@@ -70,7 +70,7 @@ func getToken(notes []Note) string {
 			return fmt.Sprint(int(chord[0] - 'A'))
 		}
 		if len(chord) == 2 && chord[0] == 'B' {
-			return string(chord[1]) + fmt.Sprint(octave) + "mem"
+			return string(chord[1]) + "mem"
 		}
 		tokenValue := ""
 		tokenValue = tokenMap[chord]

@@ -2,7 +2,7 @@ package utils
 
 import (
 	"fmt"
-	"github.com/ayushsatyam146/opus-midi/store"
+	"opus-backend/store"
 )
 
 

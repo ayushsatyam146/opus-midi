@@ -1,9 +1,11 @@
 package main
 
 import (
-	"github.com/ayushsatyam146/opus-midi/utils"
+	"fmt"
+	"opus-backend/utils"
 )
 
 func main() {
+	fmt.Printf("Welcome to Opus: A musical programming language!\n")
 	utils.Writer()
 }

@@ -4,7 +4,8 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/ayushsatyam146/opus-midi/store"
+	"opus-backend/repl"
+	"opus-backend/store"
 
 	"gitlab.com/gomidi/midi"
 	"gitlab.com/gomidi/rtmididrv"
@@ -13,7 +14,6 @@ import (
 func ParseInput(ActiveNotes map[int64][]store.Note){
 	noteGroups := store.ParseNotes(ActiveNotes)
 	store.ParseChords(noteGroups)
-	// PrintNoteGroups(noteGroups)
 }
 
 func InputChannel(in midi.In, ActiveNotes map[int64][]store.Note) {
@@ -25,7 +25,14 @@ func InputChannel(in midi.In, ActiveNotes map[int64][]store.Note) {
 			fmt.Println(err)
 			fmt.Printf("closing MIDI Port %v.....\n", in)
 			os.Exit(0)
-		} 
+		} else if input == "compile" {
+			err := in.StopListening()
+			Must(err)
+			codestring := string(ReadFile("test.opus"))
+			repl.Start(codestring)
+			fmt.Printf("closing MIDI Port %v.....\n", in)
+			os.Exit(0)
+		}
 	}
 }
 

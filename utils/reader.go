@@ -1,7 +1,7 @@
 package utils
 
 import (
-	"github.com/ayushsatyam146/opus-midi/store"
+	"opus-backend/store"
 	. "gitlab.com/gomidi/midi/midimessage/channel"
 	"gitlab.com/gomidi/midi"
 	"gitlab.com/gomidi/midi/reader"
