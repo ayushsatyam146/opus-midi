@@ -6,3 +6,4 @@ require (
 	gitlab.com/gomidi/midi v1.23.7 // indirect
 	gitlab.com/gomidi/rtmididrv v0.15.0 // indirect
 )
+

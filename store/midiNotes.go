@@ -91,3 +91,26 @@ var MidiNoteMap = map[int]string{
 	107: "B7",
 	108: "C8",
 }
+
+var tokenMap = map[string]string{
+	"Amin" :"*",
+	"Gmaj": "!",
+	"Cmaj": ";",
+	"Fmaj": "-",
+	"Emin": "+",
+	"Dmin": "=",
+	"Bdim": "/",
+	"Cpow": "(",
+	"Fpow": ")",
+	"Gpow": "{",
+	"Apow": "}",
+	"Dpow": "let",
+	"Epow": "return",
+	"CE": "<",
+	"CG": ">",
+	"FA": "==",
+	"FC": "!=",
+	"GB": ",",
+	"GC": "if",
+	"GD": "else",
+}

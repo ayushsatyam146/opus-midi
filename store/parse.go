@@ -1,17 +1,15 @@
-package utils
+package store
 
 import (
 	"sort"
-
-	"github.com/ayushsatyam146/opus-midi/store"
 )
 
-func ParseNotes(ActiveNotes map[int64][]store.Note) [][]store.Note {
+func ParseNotes(ActiveNotes map[int64][]Note) [][]Note {
 	totalNotes := 0
 	for _, notes := range ActiveNotes {
 		totalNotes += len(notes)
 	}
-	song := make([]store.Note, totalNotes)
+	song := make([]Note, totalNotes)
 	for _, notes := range ActiveNotes {
 		for _, note := range notes {
 			song = append(song, note)
@@ -22,8 +20,8 @@ func ParseNotes(ActiveNotes map[int64][]store.Note) [][]store.Note {
 		return song[i].TimeStamp < song[j].TimeStamp
 	})
 
-	NoteGroups := [][]store.Note{}
-	LocalGroup := []store.Note{}
+	NoteGroups := [][]Note{}
+	LocalGroup := []Note{}
 	for i, note := range song {
 		if i == 0 {
 			LocalGroup = append(LocalGroup, note)
@@ -32,11 +30,24 @@ func ParseNotes(ActiveNotes map[int64][]store.Note) [][]store.Note {
 				LocalGroup = append(LocalGroup, note)
 			} else {
 				NoteGroups = append(NoteGroups, LocalGroup)
-				LocalGroup = []store.Note{}
+				LocalGroup = []Note{}
 				LocalGroup = append(LocalGroup, note)
 			}
 		}
 	}
 	NoteGroups = append(NoteGroups, LocalGroup)
 	return NoteGroups
+}
+
+func ParseChords(NoteGroups [][]Note) {
+	codeString := ""
+	for i, group := range NoteGroups {
+		token := getToken(group)
+		if token != "" {
+			NoteGroups[i][0].Name = token
+			NoteGroups[i] = NoteGroups[i][:1]
+			codeString += NoteGroups[i][0].Name + " "
+		}
+	}
+	overwriteFile("test.opus", codeString)
 }
